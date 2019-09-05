@@ -21,8 +21,8 @@ if [[ "$SSH_ENABLE" == "1" ]]; then
     sed 's@session\s*required\s*pam_loginuid.so@session optional pam_loginuid.so@g' -i /etc/pam.d/sshd
     echo "export VISIBLE=now" >> /etc/profile
 
-    if [ ! -f authorized_keys ]; then
-        touch authorized_keys
+    if [ ! -f $PG_HOME/.ssh/authorized_keys ]; then
+        touch $PG_HOME/.ssh/authorized_keys
     fi
     for pubkey in `ls -1 $PG_HOME/.ssh/*.pub`; do
         comment=`cut -d " " -f 3 $pubkey`
