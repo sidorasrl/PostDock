@@ -24,12 +24,12 @@ if [[ "$SSH_ENABLE" == "1" ]]; then
     if [ ! -f authorized_keys ]; then
         touch authorized_keys
     fi
-    for pubkey in `ls -1 *.pub`; do
+    for pubkey in `ls -1 $PG_HOME/.ssh/*.pub`; do
         comment=`cut -d " " -f 3 $pubkey`
         if (( ! "0$comment" == "0" )); then
-            present=`grep $comment authorized_keys| wc -l`
+            present=`grep $comment $PG_HOME/.ssh/authorized_keys| wc -l`
             if (( "0$present" == "00" )); then
-                cat $pubkey >> authorized_keys
+                cat $pubkey >> $PG_HOME/.ssh/authorized_keys
             fi
         fi
     done
