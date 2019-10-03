@@ -26,9 +26,9 @@ if [[ "$SSH_ENABLE" == "1" ]]; then
     fi
     for pubkey in `ls -1 $PG_HOME/.ssh/*.pub`; do
         comment=`cut -d " " -f 3 $pubkey`
-        if (( ! "0$comment" == "0" )); then
+        if [ ! "a$comment" == "a" ]; then
             present=`grep $comment $PG_HOME/.ssh/authorized_keys| wc -l`
-            if (( "0$present" == "00" )); then
+            if [ "is$present" == "is0" ]; then
                 cat $pubkey >> $PG_HOME/.ssh/authorized_keys
             fi
         fi
